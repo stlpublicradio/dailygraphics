@@ -3,7 +3,11 @@
  */
 
 // Global config
+<<<<<<< HEAD
 var GRAPHIC_DEFAULT_WIDTH = 600;
+=======
+var DEFAULT_WIDTH = 300;
+>>>>>>> upstream/master
 var MOBILE_THRESHOLD = 500;
 
 var colors = {
