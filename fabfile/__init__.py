@@ -508,6 +508,13 @@ def add_event_sidebar(slug):
     """
     _add_graphic(slug, 'event_sidebar')
 
+@task
+def add_image_sidebar(slug):
+    """
+    Create a sidebar of a graphic with attached link.
+    """
+    _add_graphic(slug, 'image_sidebar')
+
 def _check_credentials():
     """
     Check credentials and spawn server and browser if not
