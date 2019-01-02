@@ -7,15 +7,11 @@ var dataSeries = [];
  * Initialize graphic
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
-        formatData();
+    formatData();
 
-        pymChild = new pym.Child({
-            renderCallback: render
-        });
-    } else {
-        pymChild = new pym.Child({});
-    }
+    pymChild = new pym.Child({
+        renderCallback: render
+    });
 
 }
 
@@ -152,7 +148,7 @@ var renderLineChart = function(config) {
         .range([chartHeight, 0]);
 
     var colorScale = d3.scale.ordinal()
-        .domain(_.pluck(config['data'], 'name'))
+        .domain(config.data.map(function(d) { return d.name }))
         .range([colors.red,colors.blue,colors.yellow,colors.orange]);
 
     /*

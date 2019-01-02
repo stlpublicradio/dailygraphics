@@ -9,15 +9,7 @@ var isMobile = false;
  * Initialize the graphic.
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
-        formatData();
-
-        pymChild = new pym.Child({
-            renderCallback: render
-        });
-    } else {
-        pymChild = new pym.Child({});
-    }
+    formatData();
 
 }
 
@@ -91,12 +83,12 @@ var renderStateGridMap = function(config) {
     if (LABELS['legend_labels'] && LABELS['legend_labels'] !== '') {
         // If custom legend labels are specified
         var legendLabels = LABELS['legend_labels'].split(',');
-        _.each(legendLabels, function(label) {
+        legendLabels.forEach(function(label) {
             categories.push(label.trim());
         });
     } else {
         // Default: Return sorted array of categories
-         _.each(config['data'], function(state) {
+         config['data'].forEach(function(state) {
             if (state[valueColumn] != null) {
                 categories.push(state[valueColumn]);
             }
@@ -122,7 +114,7 @@ var renderStateGridMap = function(config) {
             .range([COLORS['red3'], COLORS['yellow3'], COLORS['blue3'], COLORS['orange3'], COLORS['teal3']]);
     }
 
-    _.each(colorScale.domain(), function(key, i) {
+    colorScale.domain().forEach(function(key, i) {
         var keyItem = legendElement.append('li')
             .classed('key-item', true)
 
@@ -154,7 +146,7 @@ var renderStateGridMap = function(config) {
         });
 
     // Set state colors
-    _.each(config['data'], function(state) {
+    config['data'].forEach(function(state) {
         if (state[valueColumn] !== null) {
             var stateClass = 'state-' + classify(state['state_name']);
             var categoryClass = 'category-' + classify(state[valueColumn]);
@@ -172,7 +164,7 @@ var renderStateGridMap = function(config) {
         .enter().append('text')
             .attr('text-anchor', 'middle')
             .text(function(d) {
-                var state = _.findWhere(STATES, { 'name': d['state_name'] });
+                var state = STATES.filter(function(v) { return v['name'] == d['state_name'] }).pop();
 
                 return isMobile ? state['usps'] : state['ap'];
             })

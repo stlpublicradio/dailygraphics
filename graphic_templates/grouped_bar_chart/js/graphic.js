@@ -7,15 +7,11 @@ var skipLabels = [ 'Group', 'key', 'values' ];
  * Initialize the graphic.
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
-        formatData();
+    formatData();
 
-        pymChild = new pym.Child({
-            renderCallback: render
-        });
-    } else {
-        pymChild = new pym.Child({});
-    }
+    pymChild = new pym.Child({
+        renderCallback: render
+    });
 
 }
 
@@ -27,8 +23,9 @@ var formatData = function() {
         d['key'] = d['Group'];
         d['values'] = [];
 
-        _.each(d, function(v, k) {
-            if (_.contains(skipLabels, k)) {
+        Object.keys(d).forEach(function(k) {
+            var v = d[k];
+            if (skipLabels.indexOf(k) > -1) {
                 return;
             }
 
@@ -134,7 +131,7 @@ var renderGroupedBarChart = function(config) {
 
     var colorScale = d3.scale.ordinal()
         .domain(d3.keys(config['data'][0]['values']).filter(function(d) {
-            if (!_.contains(skipLabels, d)) {
+            if (skipLabels.indexOf(d) == -1) {
                 return d;
             }
         }))

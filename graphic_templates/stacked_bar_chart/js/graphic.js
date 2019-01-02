@@ -7,15 +7,11 @@ var skipLabels = [ 'label', 'values' ];
  * Initialize the graphic.
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
-        formatData();
+    formatData();
 
-        pymChild = new pym.Child({
-            renderCallback: render
-        });
-    } else {
-        pymChild = new pym.Child({});
-    }
+    pymChild = new pym.Child({
+        renderCallback: render
+    });
 
 }
 
@@ -29,7 +25,7 @@ var formatData = function() {
         d['values'] = [];
 
         for (var key in d) {
-            if (_.contains(skipLabels, key)) {
+            if (skipLabels.indexOf(key) > -1) {
                 continue;
             }
 
@@ -136,9 +132,7 @@ var renderStackedBarChart = function(config) {
 
     var colorScale = d3.scale.ordinal()
         .domain(d3.keys(config['data'][0]).filter(function(d) {
-            if (!_.contains(skipLabels, d)) {
-                return d;
-            }
+            return skipLabels.indexOf(d) == -1;
         }))
         .range([ colors.green,colors.orange,colors.blue,colors.yellow ]);
 
