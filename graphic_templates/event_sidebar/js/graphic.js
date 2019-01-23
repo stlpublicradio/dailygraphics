@@ -9,7 +9,6 @@ var onWindowLoaded = function() {
         pymChild = new pym.Child({
             renderCallback: render
         });
-
 }
 
 var colors = {
