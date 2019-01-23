@@ -6,14 +6,9 @@ var isMobile = false;
  * Initialize the graphic.
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
-        pymChild = new pym.Child({
-            renderCallback: render
-        });
-    } else {
-        pymChild = new pym.Child({});
-    }
-
+    pymChild = new pym.Child({
+        renderCallback: render
+    });
 }
 
 var colors = {

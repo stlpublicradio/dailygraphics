@@ -30,12 +30,8 @@ var geoData = null;
  * Initialize the graphic.
  */
 var onWindowLoaded = function() {
-    if (Modernizr.svg) {
         loadJSON()
-    } else {
         pymChild = new pym.Child({});
-
-    }
 }
 
 /*
@@ -49,12 +45,8 @@ var loadJSON = function() {
             renderCallback: render
         });
 
-        pymChild.onMessage('on-screen', function(bucket) {
-            ANALYTICS.trackEvent('on-screen', bucket);
-        });
         pymChild.onMessage('scroll-depth', function(data) {
             data = JSON.parse(data);
-        ANALYTICS.trackEvent('scroll-depth', data.percent, data.seconds);
         });
     });
 }
